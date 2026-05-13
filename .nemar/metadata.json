@@ -1,0 +1,22 @@
+{
+  "version": "2.0",
+  "dataset_id": "on003195",
+  "source": "openneuro",
+  "source_id": "ds003195",
+  "title": "Placebo Neuroepo multisession",
+  "authors": {
+    "Maria Luisa Bringas Vega": {},
+    "Lilia Morales Chacon ": {},
+    "Ivonne Pedroso Ibanez": {}
+  },
+  "license": "CC0",
+  "dataset_type": "raw",
+  "related_identifiers": [
+    {
+      "identifier": "10.18112/openneuro.ds003195.v1.0.3",
+      "identifier_type": "DOI",
+      "relation_type": "IsIdenticalTo"
+    }
+  ],
+  "pipeline_stage": "seeded"
+}
