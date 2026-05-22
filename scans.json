@@ -1,0 +1,5 @@
+{
+  "age_acq_time": {
+    "Description": "Acquisition time as recorded in the source dataset (OpenNeuro ds003195). Most entries are clock times in HH:MM:SS format (24-hour) representing the wall-clock time of the recording. One entry (sub-PLAC17 ses-placebopre) contains the decimal value '69.39' whose semantics are not documented in the source dataset. The column name 'age_acq_time' combines two concepts (participant age and acquisition time); the dataset does not document which is intended."
+  }
+}
