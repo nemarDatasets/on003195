@@ -1,6 +1,6 @@
 {
   "Name": "Placebo Neuroepo multisession",
-  "BIDSVersion": "1.8.0",
+  "BIDSVersion": "1.11.1",
   "Authors": [
     "Maria Luisa Bringas Vega",
     "Lilia Morales Chacon ",
@@ -19,12 +19,5 @@
     }
   ],
   "Version": "1.0.2",
-  "DatasetType": "raw",
-  "GeneratedBy": [
-    {
-      "Name": "nemar-cli",
-      "Version": "0.8.8",
-      "CodeURL": "https://github.com/nemar-org/nemar-cli"
-    }
-  ]
+  "DatasetType": "raw"
 }

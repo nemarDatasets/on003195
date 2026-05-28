@@ -5,37 +5,30 @@ In a double-blind randomized placebo (https://clinicaltrials.gov/ number NCT0411
 Here in this repository we placed the raw EEG in BIDS format  (Pernet, C. R. et al. EEG-BIDS, an extension to the brain imaging data structure for electroencephalography. Sci. data 6, 103 (2019). For the use of VARETA the qEEG program you can use (Bosch-Bayard, J. et al. A Quantitative EEG Toolbox for the MNI Neuroinformatics Ecosystem: Normative SPM of EEG Source Spectra. Front. Neuroinform. 14, (2020).)
 The EEG dataset from the different stages of processing can be requested to the authors. 
 
-## NEMAR curation changes (2026-05-21)
+## NEMAR curation changes (2026-05-21, revised 2026-05-27)
 
-BIDS validator: 1 error + 423 warnings → 0 errors + 341 warnings. Raw `.edf` binary payloads unchanged.
+The BIDS validator went from 1 error + 423 warnings to 0 errors + 342 warnings. None of the raw `.edf` files were modified — every change is to a text sidecar.
 
-### `participants.tsv`
-- Stripped a trailing tab on every line (header was `participant_id\tsex\t` with an empty third column) and converted CRLF line endings to LF. Why: the trailing tab introduced an unnamed third column that the validator flagged as `TSV_ADDITIONAL_COLUMNS_UNDEFINED` with an empty `subCode`; cleaning the header removes the phantom column without changing any participant data.
+**Participant table (`participants.tsv`) and its new sidecar (`participants.json`)**
+- Each row ended in an extra tab, which created an empty, unnamed third column that the validator flagged; the stray tab was removed and the file's line endings were normalized. No participant data was changed.
+- The `sex` column records each participant as a number (`0`, `1`, or `6`), but there was no sidecar to explain those codes, so the validator read them against its built-in `F`/`M`/`O` list and rejected them. A new `participants.json` declares the column with exactly the codes that appear and notes that the dataset does not document what each number means — that key has to be looked up in the source publication. The lone `6` (one participant, sub-PLAC17) is flagged as unexplained in the source. No mapping was invented.
 
-### `participants.json` (new)
-- Declared the `participant_id` column and the `sex` column with explicit `Levels` for the three observed codes (`0`, `1`, `6`). Why: the source dataset codes `sex` numerically (values `0`/`1`/`6` appear in the TSV body), which fired `TSV_VALUE_INCORRECT_TYPE:sex` against the BIDS-standard `F/M/O/n/a` enum. The numeric-to-category mapping is not documented in the source files, so the sidecar declares the codes verbatim and points the reader to the source publication; `Levels` is intentionally limited to the values that actually appear in the TSV. Value `6` is noted as a singleton (sub-PLAC17) with no source explanation. No mapping was invented.
+**Scan tables — new shared sidecar (`scans.json`) at the dataset root**
+- The scan tables use a column named `age_acq_time` that BIDS does not define, so a root-level `scans.json` describes it. Most entries are a time of day (`HH:MM:SS`); one (sub-PLAC17, pre-placebo session) is a decimal (`69.39`) whose meaning the source does not give. The column name mixes two ideas ("age" and "acquisition time") and the source does not say which is intended, so no unit was asserted and the description records that ambiguity rather than guessing.
 
-### `scans.json` (new, root inheriting)
-- Declared the non-standard `age_acq_time` column with a Description that records what the values look like rather than inventing a unit. Why: every per-session `_scans.tsv` carries this column (firing 20× `TSV_ADDITIONAL_COLUMNS_UNDEFINED:age_acq_time`); 19 of 20 entries are clock times in `HH:MM:SS` format and one (sub-PLAC17 ses-placebopre) is the decimal `69.39` whose semantics are undocumented. The column name combines two concepts ("age" and "acquisition time") and the source dataset does not say which is intended, so no `Units` is asserted and the Description captures the ambiguity.
+**Event tables — two new shared sidecars at the dataset root (`task-taskplacebopre_events.json`, `task-taskplacebo6m_events.json`)**
+- The event tables had no sidecar describing their columns. One shared sidecar per task now documents the `value` and `sample` columns (standard MNE-BIDS export columns) and the `trial_type` column, and applies to every matching recording at once. The `trial_type` labels are kept as free text rather than a fixed list, because the recordings use a dozen varied (and sometimes misspelled) Spanish labels and pinning them to a fixed list would reject the unmapped ones; the observed labels are described in the column's description.
 
-### `task-taskplacebopre_events.json` and `task-taskplacebo6m_events.json` (new, root inheriting per task)
-- Declared the `value` and `sample` columns (both standard MNE-BIDS export columns) and the `trial_type` column (free-form, no `Levels`). Why: every per-recording `_events.tsv` carries `value` and `sample` (firing 20× each of `TSV_ADDITIONAL_COLUMNS_UNDEFINED:value` and `:sample`); declaring them once at the root closes all 40 warnings via BIDS inheritance. The `trial_type` column carries 12 distinct free-form Spanish labels (`photic stimulation`, `ojos cerrados`, `ojos abiertos`, `hiperventilacion 1`-`4`, `recuperacion`, `discontinuity`, `fotoestimulacion`, `HPVOJOS ABIERTOS`, `hipervantilacion 4`) — too varied (and typo-laden) to enumerate as a `Levels` map without rejecting unmapped rows, so the observed vocabulary is described in the column Description and the column stays free-form.
+**Dataset description (`dataset_description.json`)**
+- Added `DatasetType: "raw"` so the dataset is validated as raw data rather than a derivative.
+- Updated `BIDSVersion` from `1.2.0` to `1.11.1` (the version the current validator checks against).
+- `GeneratedBy` was left absent, exactly as the source published it — nothing was added there.
 
-### `dataset_description.json`
-- Added `"DatasetType": "raw"`. Why: the validator otherwise infers derivative-rules when `GeneratedBy` is present without `DatasetType`, producing spurious `Description` cascades; pairing the two avoids that mode.
-- Added a `GeneratedBy` entry recording `nemar-cli`. Why: documents curation provenance and clears `JSON_KEY_RECOMMENDED:GeneratedBy`.
-- Bumped `BIDSVersion` `1.2.0` → `1.8.0`. Why: BIDSVersion < 1.8.0 fires `UNKNOWN_BIDS_VERSION` on newer validators; 1.8.0 fully supports the BIDS-EEG fields used here.
+**Recording sidecars (`_eeg.json`, all 20 recordings)**
+- The misc-channel-count field was spelled `MiscChannelCount`; BIDS uses the all-uppercase `MISCChannelCount`. It was renamed (the value, `0`, was already correct) so the validator recognizes it.
 
-### All 20 per-recording `_eeg.json` files (`sub-*/ses-*/eeg/*_eeg.json`)
-- Renamed the key `MiscChannelCount` (camelCase) to `MISCChannelCount` (BIDS-canonical, uppercase `MISC`). Why: the validator does not recognise the camelCase variant, so it kept firing 20× `SIDECAR_KEY_RECOMMENDED:MISCChannelCount` even though every file already declared the correct value of `0`. The rename closes all 20 warnings; values were preserved unchanged.
+**Remaining warnings (342) — left on purpose**
+- These are all "recommended but missing" study, lab, and equipment fields not present in the dataset (for example: manufacturer, cap model, device serial number, instructions, institution, hardware filters, ground electrode, head circumference, cognitive-atlas IDs). One of them is `GeneratedBy`: the source does not document what tool generated the data, so it was left absent rather than guessed. All were left blank rather than filled with invented values.
 
-### Out of mechanical scope (remaining 341 warnings)
-
-All remaining warnings are equipment/lab/study context not present in this dataset:
-
-- 17 × 20 `SIDECAR_KEY_RECOMMENDED` for `Manufacturer`, `ManufacturersModelName`, `SoftwareVersions`, `DeviceSerialNumber`, `Instructions`, `CogAtlasID`, `CogPOID`, `InstitutionName`, `InstitutionAddress`, `InstitutionalDepartmentName`, `CapManufacturer`, `CapManufacturersModelName`, `EEGGround`, `HeadCircumference`, `HardwareFilters`, `SubjectArtefactDescription`, `StimulusPresentation`. These require information not documented in the dataset (amplifier hardware, lab/institution, study protocol, per-subject anthropometry). NEMAR curation policy is to leave these as warnings rather than invent values.
-- 1 × `JSON_KEY_RECOMMENDED:HEDVersion` on `dataset_description.json`. This dataset does not use HED tags, so the field is not applicable.
-
-### Notes for re-hosting
-
-- An upstream-pipeline finding from the eeg-verify sweep (not addressed by this curation pass): all 20 `.edf` files have a header `n_records` count that overstates the actual payload by a fractional record (1-7 seconds of nominal duration). MNE's lenient EDF reader truncates and proceeds; `pyedflib`'s strict reader rejects every file. Touching the binary `.edf` headers is outside the mechanical-sidecar curation scope and was deliberately not attempted here; rehost would benefit from re-encoding the EDF files with a correct `n_records` field.
+**The recording files have a header defect (not fixed here)**
+- All 20 `.edf` files declare more data records in their header than the file actually contains (off by roughly 1–7 seconds). MNE's reader tolerates this and loads the data; stricter readers (such as pyedflib) reject the files. Correcting it means rewriting the `.edf` binary headers, which is beyond this text-only cleanup; a rehost would benefit from re-encoding the files with the correct record count.
