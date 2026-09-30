@@ -2,6 +2,8 @@
   "version": "2.0",
   "pipeline_stage": "validated",
   "title": "Placebo Neuroepo multisession",
+  "description": "Resting-state EEG recorded from 25 patients with Parkinson's disease enrolled in a double-blind, randomized, placebo-controlled trial of Neuroepo, an EPO formulation with low sialic acid content. Recordings were acquired before and six months after drug or placebo administration (Neuroepo n=15, placebo n=10). The raw data are shared in EEG-BIDS format to support evaluation of neuroprotective effects and qEEG biomarkers of disease progression.",
+  "methods_description": "Resting-state EEG was recorded before and six months after administration of Neuroepo or placebo. Two experts rated EEG abnormalities on a Likert-type scale, analyzed with a multivariate item response theory approach. Quantitative EEG source analysis used VARETA with co-registration to the MNI atlas. Group and time comparisons used permutation tests and surfstat contrasts with Bonferroni correction.",
   "license": "CC0",
   "dataset_type": "raw",
   "authors": {
@@ -9,6 +11,33 @@
     "Lilia Morales Chacon ": {},
     "Ivonne Pedroso Ibanez": {}
   },
+  "keywords": [
+    {
+      "term": "EEG"
+    },
+    {
+      "term": "Parkinson Disease",
+      "subject_scheme": "MeSH",
+      "value_uri": "http://id.nlm.nih.gov/mesh/D010300"
+    },
+    {
+      "term": "Erythropoietin",
+      "subject_scheme": "MeSH",
+      "value_uri": "http://id.nlm.nih.gov/mesh/D004921"
+    },
+    {
+      "term": "Neuroprotection"
+    },
+    {
+      "term": "resting-state"
+    },
+    {
+      "term": "quantitative EEG"
+    },
+    {
+      "term": "randomized controlled trial"
+    }
+  ],
   "related_identifiers": [
     {
       "identifier": "10.18112/openneuro.ds003195.v1.0.3",
@@ -21,22 +50,22 @@
       "relation_type": "IsDescribedBy"
     },
     {
-      "identifier": "https://nemar.org/dataexplorer/detail?dataset_id=on003195",
+      "identifier": "https://nemar.org/dataset/on003195",
       "identifier_type": "URL",
       "relation_type": "IsDescribedBy"
     }
   ],
   "funding_references": [
     {
-      "funder_name": "National Nature and Science Foundation of China",
+      "funder_name": "National Natural Science Foundation of China",
       "award_number": "61871105"
     },
     {
-      "funder_name": "National Nature and Science Foundation of China",
+      "funder_name": "National Natural Science Foundation of China",
       "award_number": "61673090"
     },
     {
-      "funder_name": "National Nature and Science Foundation of China",
+      "funder_name": "National Natural Science Foundation of China",
       "award_number": "81330032"
     },
     {
@@ -44,12 +73,12 @@
       "award_number": "Y0301902610100201"
     }
   ],
+  "resource_type_specific": "EEG Dataset",
   "modalities": [
     "eeg"
   ],
-  "resource_type_specific": "EEG Dataset",
   "sizes": [
-    "126.7 MB (21 files)"
+    "121 MB (21 files)"
   ],
   "formats": [
     ".edf",
@@ -58,33 +87,6 @@
     ".md",
     ".tsv",
     ".yml"
-  ],
-  "description": "This dataset comprises resting-state EEG recordings from 25 Parkinson's disease patients enrolled in a double-blind randomized placebo-controlled trial of Neuroepo, a novel erythropoietin formulation. EEG data were acquired before and six months after drug administration, with both qualitative and quantitative source-level analyses performed to assess neuroprotective effects and identify neural biomarkers of disease progression.",
-  "methods_description": "Resting-state EEG was recorded before and six months after administration of either Neuroepo (n=15) or placebo (n=10). Qualitative EEG analysis was performed by two experts using a Likert-type scale and multivariate item response theory (MIRT). Quantitative EEG analysis was conducted at the source level using VARETA software with co-registration to the Montreal Neurological Institute Atlas. Statistical comparisons between groups and timepoints were performed using permutation tests and contrast methods with Bonferroni correction for multiple comparisons.",
-  "keywords": [
-    {
-      "term": "EEG"
-    },
-    {
-      "term": "Parkinson Disease",
-      "subject_scheme": "MeSH",
-      "value_uri": "http://id.nlm.nih.gov/mesh/D010300"
-    },
-    {
-      "term": "resting-state"
-    },
-    {
-      "term": "source localization"
-    },
-    {
-      "term": "quantitative EEG"
-    },
-    {
-      "term": "placebo-controlled trial"
-    },
-    {
-      "term": "neuroprotection"
-    }
   ],
   "source_hash": "cefbb4773d838009a34207d7ecbc635460ea19e5443bf6ff69d2bf37d919bb22"
 }
