@@ -1,0 +1,13 @@
+{
+  "participant_id": {
+    "Description": "Unique participant identifier matching the sub-<label> directory names."
+  },
+  "sex": {
+    "Description": "Numeric sex code as recorded in the source dataset (OpenNeuro ds003195). Observed values: '0', '1', '6'. The mapping from numeric codes to sex categories is not documented in this dataset; see the source publication for the coding key. Value '6' appears once (sub-PLAC17) and is not explained by the source files.",
+    "Levels": {
+      "0": "Coded as 0 in source dataset; mapping not documented.",
+      "1": "Coded as 1 in source dataset; mapping not documented.",
+      "6": "Coded as 6 in source dataset; mapping not documented; appears once."
+    }
+  }
+}

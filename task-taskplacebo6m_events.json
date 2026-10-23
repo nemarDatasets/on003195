@@ -1,0 +1,11 @@
+{
+  "trial_type": {
+    "Description": "Event label as recorded by the source dataset's annotator (Spanish, free-form). Observed values include: 'photic stimulation' (photic-driving block), 'ojos cerrados' (eyes closed), 'ojos abiertos' (eyes open), 'hiperventilacion 1'-'hiperventilacion 4' (hyperventilation blocks 1-4), 'fotoestimulacion' (photic stimulation, alternate spelling), 'HPVOJOS ABIERTOS' (hyperventilation, eyes open), 'recuperacion' (recovery), 'discontinuity' (recording discontinuity marker), and 'hipervantilacion 4' (typo for 'hiperventilacion 4', one occurrence)."
+  },
+  "value": {
+    "Description": "Numeric trigger code associated with the event marker, as recorded by the acquisition system."
+  },
+  "sample": {
+    "Description": "Onset of the event expressed as a 0-based sample index relative to the start of the recording."
+  }
+}
