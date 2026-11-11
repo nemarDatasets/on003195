@@ -2,8 +2,8 @@
   "version": "2.0",
   "pipeline_stage": "validated",
   "title": "Placebo Neuroepo multisession",
-  "description": "Resting-state EEG recorded from 25 patients with Parkinson's disease enrolled in a double-blind, randomized, placebo-controlled trial of Neuroepo, an EPO formulation with low sialic acid content. Recordings were acquired before and six months after drug or placebo administration (Neuroepo n=15, placebo n=10). The raw data are shared in EEG-BIDS format to support evaluation of neuroprotective effects and qEEG biomarkers of disease progression.",
-  "methods_description": "Resting-state EEG was recorded before and six months after administration of Neuroepo or placebo. Two experts rated EEG abnormalities on a Likert-type scale, analyzed with a multivariate item response theory approach. Quantitative EEG source analysis used VARETA with co-registration to the MNI atlas. Group and time comparisons used permutation tests and surfstat contrasts with Bonferroni correction.",
+  "description": "Resting-state EEG recorded from patients with Parkinson's disease enrolled in a double-blind, randomized, placebo-controlled trial of Neuroepo, an erythropoietin formulation with low sialic acid content. Recordings were acquired before and six months after drug administration in Neuroepo (n=15) and placebo (n=10) groups. The dataset supports qualitative EEG abnormality ratings and quantitative source-level EEG analysis, and is shared as raw EEG in BIDS format.",
+  "methods_description": "Resting-state EEG was recorded at baseline and six months after administration of Neuroepo or placebo. Qualitative EEG abnormalities were rated by two experts on a Likert-type scale and analyzed with a multivariate item response theory approach. Quantitative EEG source analysis used VARETA with MNI atlas co-registration, followed by permutation tests and surfstat contrasts with Bonferroni correction.",
   "license": "CC0",
   "dataset_type": "raw",
   "authors": {
@@ -26,24 +26,19 @@
       "value_uri": "http://id.nlm.nih.gov/mesh/D004921"
     },
     {
-      "term": "Neuroprotection"
+      "term": "Neuroepo"
     },
     {
-      "term": "resting-state"
+      "term": "resting state"
     },
     {
       "term": "quantitative EEG"
     },
     {
-      "term": "randomized controlled trial"
+      "term": "placebo-controlled trial"
     }
   ],
   "related_identifiers": [
-    {
-      "identifier": "10.18112/openneuro.ds003195.v1.0.3",
-      "identifier_type": "DOI",
-      "relation_type": "IsDerivedFrom"
-    },
     {
       "identifier": "https://github.com/nemarDatasets/on003195",
       "identifier_type": "URL",
@@ -53,19 +48,24 @@
       "identifier": "https://nemar.org/dataset/on003195",
       "identifier_type": "URL",
       "relation_type": "IsDescribedBy"
+    },
+    {
+      "identifier": "10.18112/openneuro.ds003195.v1.0.4",
+      "identifier_type": "DOI",
+      "relation_type": "IsDerivedFrom"
     }
   ],
   "funding_references": [
     {
-      "funder_name": "National Natural Science Foundation of China",
+      "funder_name": "National Natural Science Foundation of China (NSFC)",
       "award_number": "61871105"
     },
     {
-      "funder_name": "National Natural Science Foundation of China",
+      "funder_name": "National Natural Science Foundation of China (NSFC)",
       "award_number": "61673090"
     },
     {
-      "funder_name": "National Natural Science Foundation of China",
+      "funder_name": "National Natural Science Foundation of China (NSFC)",
       "award_number": "81330032"
     },
     {
@@ -88,5 +88,5 @@
     ".tsv",
     ".yml"
   ],
-  "source_hash": "cefbb4773d838009a34207d7ecbc635460ea19e5443bf6ff69d2bf37d919bb22"
+  "source_hash": "7e7f1c53aa1c1a4f01deebcb6b5f08e94b3fbb43c8dfb82997b774f451fe82ec"
 }
